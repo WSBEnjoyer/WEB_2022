@@ -4,12 +4,14 @@ $txt =
 services:
   web1:
     image: nginx
+    blop: 
+      idk: random
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./templates:/etc/nginx/templates
     port:
       - 80:80
-  web2:
+  web2: 
     image: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
@@ -25,69 +27,76 @@ services:
       - 82:80";
 
 $lines = explode("\n", $txt);
+$jsonResult = "";
 format($lines, 0, 0);
+
+echo $jsonResult;
 
 
 function format($lines, $level, $from) {
+	global $jsonResult;
+	
 	for ($i = $from; $i < count($lines); $i++) {
 		$line = $lines[$i];
+		
 		$currLevel = count_level($line);
-	
 		if ($currLevel != $level) {
 			$i--;
 			break;
 		}
-		
 		leave_blank_space($currLevel);
 		
+		
 		$line = explode(":", $line);
-		$key = trim(preg_replace('/\s\s+/', ' ', $line[0]));
+		
+		$key = ltrim($line[0]);
+		$key = rtrim($key);
+		$value = ltrim($line[1]);
+		$value = rtrim($value);
 		
 		if (str_starts_with($key, "-")) {
-			$key = str_replace('- ', '', $key);
+			$key = str_replace('-', '', $key);
+			$key = ltrim($key);
 		}
 		
-		if (!isset($line[1]) || empty($line[1]) || strlen($line[1]) == 1) {
+		if (!isset($value) || empty($value)) {
 			$nextLine = $lines[$i+1];
-			$nextLine = trim(preg_replace('/\s\s+/', ' ', $nextLine));
-			if ($i + 1 < count($lines) && count_level($lines[$i+1]) > $currLevel) {
+			if ($i + 1 < count($lines) && count_level($nextLine) > $currLevel) {
 				$array = false;
+                $nextLine = ltrim($nextLine);
 				if (str_starts_with($nextLine, "-") ) {
 					$array = true;
-					echo "\"$key\": [\n";
+					$jsonResult .= "\"$key\": [\n";
 				} else {
-					echo "\"$key\": {\n";
+					$jsonResult .= "\"$key\": {\n";
 				}
 				
 				$endIn = format($lines, $currLevel + 2, $i + 1);
 				leave_blank_space($currLevel);
 				if($array) {
-					echo "],\n";
+					$jsonResult .= "],\n";
 				} else {
-					echo "}\n";
+					$jsonResult .= "}\n";
 				}
 				
 				$i = $endIn;
 			} 
 			else {
-			echo "\"$key\" \n";
+				$jsonResult .= "\"$key\" \n";
 			}
 		}
 		else {
-			$value = $line[1];
-			$value = trim(preg_replace('/\s\s+/', ' ', $value));
-			echo "\"$key\": ";
+			$jsonResult .= "\"$key\": ";
 			if (is_numeric($value) || isBoolean($value)) {
-				echo "$value";
+				$jsonResult .= "$value";
 			} else {
-				echo "\"$value\"";
+				$jsonResult .= "\"$value\"";
 			}
 			if ($i + 1 < count($lines) && count_level($lines[$i+1]) == $currLevel) {
-				echo ",";
+				$jsonResult .= ",";
 			}
-			echo "\n";
+			$jsonResult .= "\n";
 		}
-		
 	}
 	return $i;
 }
@@ -107,8 +116,9 @@ function count_level($line) {
 }
 
 function leave_blank_space($count) {
+	global $jsonResult;
 	for ($i = 0; $i < $count; $i++) {
-		echo " ";
+		$jsonResult .=" ";
 	}
 }
 
