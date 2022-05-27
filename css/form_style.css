@@ -1,0 +1,49 @@
+label {
+    display: block;
+    margin-top: 1rem;
+}
+
+input {
+    box-sizing: border-box;
+    width: 100%;
+
+    font-size: 1rem;
+    padding: 0.2rem;
+}
+
+.form {
+    width: 20%;
+}
+
+button[type=submit] {
+    margin-top: 1rem;
+    width: 100%;
+
+    padding: 0.5rem 0;
+    cursor: pointer;
+
+    color: white;
+    border: none;
+    background-color: rgb(0, 55, 255);
+}
+
+button[type=submit]:hover {
+    background-color: rgb(34, 82, 255);
+}
+
+.message-container {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.error-container {
+    background-color: rgb(255, 149, 149);
+}
+
+.error-container:not(:first-of-type) {
+    margin-top: 0.5rem;
+}
+
+.success-container {
+    background-color: rgb(164, 252, 158);
+}
