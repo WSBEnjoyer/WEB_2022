@@ -48,12 +48,12 @@ if ($_POST) {
 
             <section class="input-group">
                 <label>Потребителско име</label>
-                <input type="text" name="username" value="<?= $_POST["username"] ?>" required />
+                <input type="text" name="username" value="<?= $_POST && $_POST["username"] ? $_POST["username"] : '' ?>" required />
             </section>
 
             <section class="input-group">
                 <label>Имейл</label>
-                <input type="email" name="email" value="<?= $_POST["email"] ?>" required />
+                <input type="email" name="email" value="<?= $_POST && $_POST["email"] ? $_POST["email"] : '' ?>" required />
             </section>
 
             <section class="input-group">
