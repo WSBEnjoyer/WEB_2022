@@ -16,7 +16,7 @@ include("util/auth.php");
         <a href="logout.php">Изход</a>
     </header>
     <main>
-        <form id="file-upload-form" action="form_submit.php" method="POST" enctype="multipart/form-data">
+        <form id="file-upload-form" action="convert_file.php" method="POST" enctype="multipart/form-data">
             <label>Изберете тип на конвертиране:</label>
             <select name="conversion-type" id="conversion-type">
                 <option value="yaml-to-json">YAML -> JSON</option>

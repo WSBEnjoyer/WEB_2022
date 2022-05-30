@@ -1,57 +1,24 @@
 <!-- JSON to YAML Parser -->
 
 <?php
-$txt = 
-'{
-  "version": "3",
-"services": {
-  "web1": {
-    "image": "nginx",
-    "blop": {
-      "idk": "random"
-    }
-    "volumes": [
-      "./nginx.conf": "/etc/nginx/nginx.conf",
-      "./templates": "/etc/nginx/templates"
-    ],
-    "port": [
-      "80": 80
-    ],
-  }
-  "web2": {
-    "image": "nginx",
-    "volumes": [
-      "./nginx.conf": "/etc/nginx/nginx.conf",
-      "./templates": "/etc/nginx/templates"
-    ],
-    "port": [
-      "81": 80
-    ],
-  }
-  "web3": {
-    "image": "nginx",
-    "volumes": [
-      "./nginx.conf": "/etc/nginx/nginx.conf",
-      "./templates": "/etc/nginx/templates"
-    ],
-    "port": [
-      "82": 80
-    ],
-  }
-}
-}';
 
-
-$txt = cleanInput($txt);
-$lines = explode("\n", $txt);
+include_once("parsing_util.php");
 
 $yamlResult = "";
-format($lines, 0, 0, false);
 
-echo $yamlResult;
+function getYamlFromJson($text) {
+	global $yamlResult;
+	$yamlResult = "";
 
+	$text = cleanInput($text);
+	$lines = explode("\n", $text);
 
-function format($lines, $level, $from, $isArray) {
+	formatJsonToYaml($lines, 0, 0, false);
+
+	return $yamlResult;
+}
+
+function formatJsonToYaml($lines, $level, $from, $isArray) {
 	global $yamlResult;
 
 	$i = $from;
@@ -74,7 +41,7 @@ function format($lines, $level, $from, $isArray) {
 			continue;
 		}
 		
-		leave_blank_space($level*2);
+		leave_blank_space($yamlResult, $level*2);
 
 		$line = explode(":", $line);
 	
@@ -97,10 +64,10 @@ function format($lines, $level, $from, $isArray) {
 		
 				if (str_starts_with($nextLine, "[") ) {
 					$yamlResult .= "$key: \n";
-					$i = format($lines, $currLevel + 1, $i + 2, true);
+					$i = formatJsonToYaml($lines, $currLevel + 1, $i + 2, true);
 				} else if (str_starts_with($nextLine, "{")){
 					$yamlResult .= "$key: \n";
-					$i = format($lines, $currLevel + 1, $i + 2, false);
+					$i = formatJsonToYaml($lines, $currLevel + 1, $i + 2, false);
 				} else {
 					$yamlResult .= "$key\n";
 				}
@@ -119,20 +86,6 @@ function format($lines, $level, $from, $isArray) {
 		}
 	}
 	return $i;
-}
-
-function count_level($line) {
-	$chars = str_split($line);
-	$count = 0;
-	
-	foreach ($chars as $char) {
-		if ($char == " ") {
-			$count++;
-		} else {
-			break;
-		}
-	}
-	return $count;
 }
 
 function cleanInput($txt) {
@@ -154,13 +107,6 @@ function removeQuotes($string) {
 
 function removeComma($string) {
 	return str_replace(',', '', $string);
-}
-
-function leave_blank_space($count) {
-	global $yamlResult;
-	for ($i = 0; $i < $count; $i++) {
-		$yamlResult .=" ";
-	}
 }
 
 ?>

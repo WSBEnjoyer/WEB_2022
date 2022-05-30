@@ -1,41 +1,23 @@
 <!-- YAML to JSON Parser -->
 
 <?php
-$txt = 
-"version: '3'
-services:
-  web1:
-    image: nginx
-    blop: 
-      idk: random
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./templates:/etc/nginx/templates
-    port:
-      - 80:80
-  web2: 
-    image: nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./templates:/etc/nginx/templates
-    port:
-      - 81:80
-  web3:
-    image: nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./templates:/etc/nginx/templates
-    port:
-      - 82:80";
 
-$lines = explode("\n", $txt);
+include_once("parsing_util.php");
+
 $jsonResult = "";
-format($lines, 0, 0);
 
-echo $jsonResult;
+function getJsonFromYaml($text) {
+	global $jsonResult;
+	$jsonResult = "";
 
+	$lines = explode("\n", $text);
 
-function format($lines, $level, $from) {
+	formatYamlToJson($lines, 0, 0);
+
+	return $jsonResult;
+}
+
+function formatYamlToJson($lines, $level, $from) {
 	global $jsonResult;
 	
 	for ($i = $from; $i < count($lines); $i++) {
@@ -46,7 +28,7 @@ function format($lines, $level, $from) {
 			$i--;
 			break;
 		}
-		leave_blank_space($currLevel);
+		leave_blank_space($jsonResult, $currLevel);
 		
 		
 		$line = explode(":", $line);
@@ -73,8 +55,8 @@ function format($lines, $level, $from) {
 					$jsonResult .= "\"$key\": {\n";
 				}
 				
-				$endIn = format($lines, $currLevel + 2, $i + 1);
-				leave_blank_space($currLevel);
+				$endIn = formatYamlToJson($lines, $currLevel + 2, $i + 1);
+				leave_blank_space($jsonResult, $currLevel);
 				if($array) {
 					$jsonResult .= "],\n";
 				} else {
@@ -101,27 +83,6 @@ function format($lines, $level, $from) {
 		}
 	}
 	return $i;
-}
-
-function count_level($line) {
-	$chars = str_split($line);
-	$count = 0;
-	
-	foreach ($chars as $char) {
-		if ($char == " ") {
-			$count++;
-		} else {
-			break;
-		}
-	}
-	return $count;
-}
-
-function leave_blank_space($count) {
-	global $jsonResult;
-	for ($i = 0; $i < $count; $i++) {
-		$jsonResult .=" ";
-	}
 }
 
 function isBoolean($value) {
