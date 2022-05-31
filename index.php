@@ -31,8 +31,27 @@ include("util/auth.php");
             <label>Поставете съдържанието на файла:</label>
             <textarea id="file-text" name="file-text" rows="20" cols="50"></textarea>
 
-            <button type="submit">Конвертиране</button>
+            <h3>Опции</h3>
+            <section class="options">
+                <section class="replacement">
+                    <h3>Замяна на тагове и стойности</h3>
+                    <section class="replacement-option-creation">
+                        <select id="replacement-type">
+                            <option value="replace-tag">Замяна на таг</option>
+                            <option value="replace-value">Замяна на стойност</option>
+                        </select>
+                        <button id="add-replacement-option-btn">Добавяне</button>
+                    </section>
+                    <section id="replacement-options-container">
+                        <!-- Newly created replacement options will be added here -->
+                    </section>
+                </section>
+            </section>
+
+            <button id="submit-btn" type="submit">Конвертиране</button>
         </form>
     </main>
+
+    <script src="js/conversion_configuration.js"></script>
 </body>
 </html>

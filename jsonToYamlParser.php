@@ -20,6 +20,7 @@ function getYamlFromJson($text) {
 
 function formatJsonToYaml($lines, $level, $from, $isArray) {
 	global $yamlResult;
+	global $replacementOptions;
 
 	$i = $from;
 	$currLevel = $level;
@@ -47,14 +48,23 @@ function formatJsonToYaml($lines, $level, $from, $isArray) {
 	
 		$key = ltrim($line[0]);
 		$key = rtrim($key);
-		if ($isArray) {
-			$key = "- ".$key;
-		}
 		
 		$value = null;
 		if (isset($line[1])) {
 			$value = ltrim($line[1]);
 			$value = rtrim($value);
+		}
+
+		if (isset($replacementOptions) && isset($replacementOptions[$key])) {
+			if ($replacementOptions[$key][0] === "replace-tag") {
+				$key = $replacementOptions[$key][1];
+			} else if ($replacementOptions[$key][0] === "replace-value") {
+				$value = $replacementOptions[$key][1];
+			}
+		}
+
+		if ($isArray) {
+			$key = "- ".$key;
 		}
 		
 		if (is_null($value) || empty($value)) {

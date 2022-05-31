@@ -19,6 +19,7 @@ function getJsonFromYaml($text) {
 
 function formatYamlToJson($lines, $level, $from) {
 	global $jsonResult;
+	global $replacementOptions;
 	
 	for ($i = $from; $i < count($lines); $i++) {
 		$line = $lines[$i];
@@ -41,6 +42,14 @@ function formatYamlToJson($lines, $level, $from) {
 		if (str_starts_with($key, "-")) {
 			$key = str_replace('-', '', $key);
 			$key = ltrim($key);
+		}
+
+		if (isset($replacementOptions) && isset($replacementOptions[$key])) {
+			if ($replacementOptions[$key][0] === "replace-tag") {
+				$key = $replacementOptions[$key][1];
+			} else if ($replacementOptions[$key][0] === "replace-value") {
+				$value = $replacementOptions[$key][1];
+			}
 		}
 		
 		if (!isset($value) || empty($value)) {

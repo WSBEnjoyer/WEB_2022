@@ -16,6 +16,18 @@ if ($_POST) {
         // echo "Error. File and content not present";
     }
 
+    // Create replacement options array
+
+    $replacementOptions = array();
+
+    for ($i = 1; ; $i++) {
+        if (!isset($_POST["repl-option-first-" . $i])) {
+            break;
+        }
+
+        $replacementOptions[$_POST["repl-option-first-" . $i]] = array($_POST["repl-option-type-" . $i], $_POST["repl-option-second-" . $i]);
+    }
+
     if ($_POST["conversion-type"] === "yaml-to-json") {
         $result = getJsonFromYaml($source);
     } else if ($_POST["conversion-type"] === "json-to-yaml") {
