@@ -1,0 +1,16 @@
+.files {
+    display: flex;
+}
+
+.file-container:first-of-type {
+    margin-right: 1rem;
+}
+
+.file-text {
+    white-space: pre-wrap;
+    border: 1px solid gray;
+    padding: 0.4rem;
+    overflow: auto;
+    width: 400px;
+    height: 700px;
+}
