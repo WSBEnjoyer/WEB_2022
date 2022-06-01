@@ -1,5 +1,6 @@
 <?php
 
+include("util/auth.php");
 include_once("parsing_util.php");
 include("yamlToJsonParser.php");
 include("jsonToYamlParser.php");
