@@ -1,6 +1,7 @@
 <?php
 
 include("util/auth.php");
+include("util/user_prefs_util.php");
 
 ?>
 
@@ -13,7 +14,10 @@ include("util/auth.php");
 </head>
 <body>
     <header>
-        <a href="logout.php">Изход</a>
+        <nav>
+            <a href="user_prefs.php">Предпочитания</a>
+            <a href="logout.php">Изход</a>
+        </nav>
     </header>
     <main>
         <form id="file-upload-form" action="convert_file.php" method="POST" enctype="multipart/form-data">
