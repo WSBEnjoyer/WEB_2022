@@ -1,10 +1,23 @@
 <?php
 
+include("properties_util.php");
+
 class DatabaseConnection {
     private $connection;
 
     function __construct() {
-        $this->connection = new PDO("mysql:host=192.168.64.2;dbname=web_course", "webuser", "webuser");
+        $propertiesUtil = new PropertiesUtil();
+        $properties = $propertiesUtil->readProperties();
+
+        if ($properties === null) {
+            error_log("Failed to read properties file or it is not present");
+            exit();
+        }
+
+        $databaseConnectionString = $properties["database"]["driver"] . ":host=" . $properties["database"]["host"] . 
+            (!empty($properties["database"]["port"]) ? ";port=" . $properties["database"]["port"] : "") . ";dbname=" . $properties["database"]["name"];
+
+        $this->connection = new PDO($databaseConnectionString, $properties["database"]["user"], $properties["database"]["user_password"]);
     }
 
     public function getConnection() {

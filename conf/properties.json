@@ -1,0 +1,10 @@
+{
+    "database": {
+        "driver": "mysql",
+        "host": "localhost",
+        "port": "3306",
+        "name": "web_project",
+        "user": "webuser",
+        "user_password": "webuser"
+    }
+}
