@@ -1,6 +1,6 @@
 <?php
 
-include("properties_util.php");
+include(__DIR__ . "/properties_util.php");
 
 class DatabaseConnection {
     private $connection;
