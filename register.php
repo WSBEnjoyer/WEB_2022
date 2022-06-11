@@ -20,6 +20,8 @@ if ($_POST) {
         } else if ($registrationResult === true) {
             $_SESSION["just_registered"] = true;
             header("Location: login.php");
+        } else if ($registrationResult === false) {
+            $errors = array("Възникна грешка при регистрация");
         }
     }
 }

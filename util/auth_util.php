@@ -10,7 +10,7 @@ class AuthUtil {
     }
 
     public function registerUser($username, $email, $password) {
-        $conn = $this->dbConnection->getConnection();
+        $conn = $this->dbConnection->getConnectionWithSelectedDatabase();
         $errors = array();
 
         $query = "SELECT * FROM users WHERE username = ?";
@@ -34,13 +34,13 @@ class AuthUtil {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($query)->execute([$username, $email, $hashedPassword]);
+        $stmtResult = $conn->prepare($query)->execute([$username, $email, $hashedPassword]);
 
-        return true;
+        return $stmtResult;
     }
 
     public function authenticateUser($username, $password) {
-        $conn = $this->dbConnection->getConnection();
+        $conn = $this->dbConnection->getConnectionWithSelectedDatabase();
 
         $query = "SELECT * FROM users WHERE username = ?";
         $stmt = $conn->prepare($query);
