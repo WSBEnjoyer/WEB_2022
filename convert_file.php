@@ -67,9 +67,9 @@ if ($_POST) {
     }
 
     if ($conversion_type === "yaml-to-json") {
-        $result = getJsonFromYaml($source);
+        $result = getJsonFromYaml($result);
     } else if ($conversion_type === "json-to-yaml") {
-        $result = getYamlFromJson($source);
+        $result = getYamlFromJson($result);
     }
 }
 
@@ -83,6 +83,11 @@ if ($_POST) {
     <link rel="stylesheet" href="css/convert_result.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="/">Начало</a>
+        </nav>
+    </header>
     <main>
         <h1>Резултат от конвертиране</h1>
         <section class="files">
