@@ -59,11 +59,21 @@ include("util/user_prefs_util.php");
                     <section id="case-container">
                         <section>
                             <label>Oт</label>
-                            <input name="case-from"></input>
+                            <select name="case-from" id="case-from">
+                                <option value="">None</option>
+                                <option value="snake_case">snake_case</option>
+                                <option value="kebab-case">kebab-case</option>
+                                <option value="UPPER_CASE">UPPER_CASE</option>
+                            </select>
                         </section>
                         <section>
                             <label>До</label>
-                            <input name="case-to"></input>
+                            <select name="case-to" id="case-to">
+                                <option value="">None</option>
+                                <option value="snake_case">snake_case</option>
+                                <option value="kebab-case">kebab-case</option>
+                                <option value="UPPER_CASE">UPPER_CASE</option>
+                            </select>
                         </section>
                     </section>
                 </section>

@@ -58,20 +58,20 @@ if ($_POST) {
 
     $conversion_type = $_POST["conversion-type"];
 
-    if($userPrefs["auto_save_files"]==="true") {
-        $conversionUtil->recordConversion($comment, $fileName, $conversion_type);
-    }
-
-    $result = $source;
+    $sourceConverted = $source;
 
     if(!empty($currentCase) && !empty($newCase)) {
-        $result = performReplacement($currentCase, $newCase, $source);
+        $sourceConverted = performReplacement($currentCase, $newCase, $source);
     }
 
     if ($conversion_type === "yaml-to-json") {
-        $result = getJsonFromYaml($result);
+        $result = getJsonFromYaml($sourceConverted);
     } else if ($conversion_type === "json-to-yaml") {
-        $result = getYamlFromJson($result);
+        $result = getYamlFromJson($$sourceConverted);
+    }
+
+    if($userPrefs["auto_save_files"]==="true") {
+        $conversionUtil->recordConversion($comment, $fileName, $conversion_type);
     }
 }
 
