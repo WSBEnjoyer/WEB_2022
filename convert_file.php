@@ -70,7 +70,7 @@ if ($_POST) {
         $result = getYamlFromJson($sourceConverted);
     }
 
-    if($userPrefs["auto_save_files"]==="true") {
+    if($userPrefs !== null && isset($userPrefs["auto_save_files"]) && $userPrefs["auto_save_files"]==="true") {
         $fileSaveDir = __DIR__ . "/saved_files/";
         $saveFileName = $username . "_" . time();
         $saveFilePath = $fileSaveDir . $saveFileName;

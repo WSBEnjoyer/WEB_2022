@@ -44,7 +44,7 @@ $userPrefs = $userPrefsUtil->getUserPrefs($username);
                 <?php foreach($availablePrefs as $prefName => $prefDescription): ?>
                     <section class="user-pref">
                         <label><?= $prefDescription ?></label>
-                        <input type="checkbox" name="<?= $prefName ?>" <?= $userPrefs["$prefName"] === "true" ? "checked" : "" ?> />
+                        <input type="checkbox" name="<?= $prefName ?>" <?= $userPrefs !== null && isset($userPrefs["auto_save_files"]) && $userPrefs["$prefName"] === "true" ? "checked" : "" ?> />
                     </section>
                 <?php endforeach ?>
 
