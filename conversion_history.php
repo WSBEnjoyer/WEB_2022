@@ -38,6 +38,7 @@ $rowsCount = count($conversionEntries);
                         <td> Comment: <?php if(empty($entry[1])): ?>No comment<?php endif ?> <?= $entry[1] ?> </td>
                         <td> Conversion type: <?= $entry[2] ?> </td>
                         <td> Original file name: <?php if(empty($entry[3])): ?>Missing<?php endif ?> <?= $entry[3] ?> </td>
+                        <td><a href="/saved_files/<?= $entry[4] ?>" download>Download Result File</a></td>
                     </tr>
                 <?php endforeach ?>
             </table>

@@ -9,13 +9,13 @@ class ConversionUtil {
         $this->dbConnection = new DatabaseConnection();
     }
 
-    public function recordConversion($comment, $fileName, $conversionType) {
+    public function recordConversion($comment, $fileName, $resultFileName, $conversionType) {
         $conn = $this->dbConnection->getConnectionWithSelectedDatabase();
         $errors = array();
         $username = $_SESSION["user"];
-        $query = "INSERT INTO conversions (username, comment, f_name, conversion_type) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO conversions (username, comment, original_file_name, result_file_name, conversion_type) VALUES (?, ?, ?, ?, ?)";
         
-        $stmtResult = $conn->prepare($query)->execute([$username, $comment, $fileName, $conversionType]);
+        $stmtResult = $conn->prepare($query)->execute([$username, $comment, $fileName, $resultFileName, $conversionType]);
 
         return $stmtResult;
     }
@@ -25,7 +25,7 @@ class ConversionUtil {
         $errors = array();
         $username = $_SESSION["user"];
 
-        $query = "SELECT date, comment, conversion_type, f_name from conversions where username = ? order by date desc";
+        $query = "SELECT date, comment, conversion_type, original_file_name, result_file_name from conversions where username = ? order by date desc";
 
         $stmt = $conn->prepare($query);
         $result = $stmt->execute(array($username));

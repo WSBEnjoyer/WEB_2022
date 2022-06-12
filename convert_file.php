@@ -67,11 +67,25 @@ if ($_POST) {
     if ($conversion_type === "yaml-to-json") {
         $result = getJsonFromYaml($sourceConverted);
     } else if ($conversion_type === "json-to-yaml") {
-        $result = getYamlFromJson($$sourceConverted);
+        $result = getYamlFromJson($sourceConverted);
     }
 
     if($userPrefs["auto_save_files"]==="true") {
-        $conversionUtil->recordConversion($comment, $fileName, $conversion_type);
+        $fileSaveDir = __DIR__ . "/saved_files/";
+        $saveFileName = $username . "_" . time();
+        $saveFilePath = $fileSaveDir . $saveFileName;
+
+        $conversionUtil->recordConversion($comment, $fileName, $saveFileName, $conversion_type);
+
+        // Save result to file
+        if (!is_dir($fileSaveDir)) {
+            mkdir($fileSaveDir);
+        }
+
+        $saveFile = fopen($saveFilePath, "w") or die("Unable to open or create file");
+
+        fwrite($saveFile, $result);
+        fclose($saveFile);
     }
 }
 
