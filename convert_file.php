@@ -62,6 +62,8 @@ if ($_POST) {
         $conversionUtil->recordConversion($comment, $fileName, $conversion_type);
     }
 
+    $result = $source;
+
     if(!empty($currentCase) && !empty($newCase)) {
         $result = performReplacement($currentCase, $newCase, $source);
     }
