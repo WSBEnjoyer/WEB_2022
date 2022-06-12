@@ -1,16 +1,26 @@
 <?php
 
 include("util/auth.php");
+include("util/conversion_util.php");
+include("util/user_prefs_util.php");
 include_once("parsing_util.php");
 include("yamlToJsonParser.php");
 include("jsonToYamlParser.php");
+include("case_replacer.php");
 
 $source = "";
 $result = "";
+$comment = "";
+$fileName = "";
+$username = $_SESSION["user"];
+
+$userPrefsUtil = new UserPrefsUtil();
+$conversionUtil = new ConversionUtil();
 
 if ($_POST) {
     if ($_FILES["file"]["error"] === UPLOAD_ERR_OK && is_uploaded_file($_FILES["file"]["tmp_name"])) {
         $source = file_get_contents($_FILES["file"]["tmp_name"]);
+        $fileName = $_FILES["file"]["name"];
     } else if (!empty($_POST["file-text"])) {
         $source = $_POST["file-text"];
     } else {
@@ -29,9 +39,36 @@ if ($_POST) {
         $replacementOptions[$_POST["repl-option-first-" . $i]] = array($_POST["repl-option-type-" . $i], $_POST["repl-option-second-" . $i]);
     }
 
-    if ($_POST["conversion-type"] === "yaml-to-json") {
+    $currentCase = "";
+    $newCase = "";
+
+    if (!empty($_POST["case-from"])) {
+        $currentCase = $_POST["case-from"];
+    }
+
+    if (!empty($_POST["case-to"])) {
+        $newCase = $_POST["case-to"];
+    }
+
+    if (!empty($_POST["comment-text"])) {
+        $comment = $_POST["comment-text"];
+    }
+
+    $userPrefs = $userPrefsUtil->getUserPrefs($username);
+
+    $conversion_type = $_POST["conversion-type"];
+
+    if($userPrefs["auto_save_files"]==="true") {
+        $conversionUtil->recordConversion($comment, $fileName, $conversion_type);
+    }
+
+    if(!empty($currentCase) && !empty($newCase)) {
+        $result = performReplacement($currentCase, $newCase, $source);
+    }
+
+    if ($conversion_type === "yaml-to-json") {
         $result = getJsonFromYaml($source);
-    } else if ($_POST["conversion-type"] === "json-to-yaml") {
+    } else if ($conversion_type === "json-to-yaml") {
         $result = getYamlFromJson($source);
     }
 }

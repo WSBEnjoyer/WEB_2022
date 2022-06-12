@@ -39,6 +39,16 @@ $createTableQuery = 'CREATE TABLE IF NOT EXISTS `users` (
     UNIQUE KEY `email_unique` (`email`)
    )';
 
+$createConversionRecordsTableQuery = 'CREATE TABLE IF NOT EXISTS `conversions` (
+    `id` int(11) AUTO_INCREMENT,
+    `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `username` varchar(50) NOT NULL,
+    `comment` varchar(500),
+    `f_name` varchar(50),
+    `conversion_type` varchar(50),
+    PRIMARY KEY(`id`)
+)';
+
 $stmt = $conn->prepare($createTableQuery);
 $result = $stmt->execute(array());
 
@@ -47,6 +57,16 @@ if (!$result) {
     exit();
 }
 
-displayMessage("Users table created or already exists")
+displayMessage("Users table created or already exists");
+
+$conversionTableStmt = $conn->prepare($createConversionRecordsTableQuery);
+$resultConversionTable = $conversionTableStmt->execute(array());
+
+if (!$resultConversionTable) {
+    displayMessage("Error creating conversions table");
+    exit();
+}
+
+displayMessage("Conversions table created or already exists");
 
 ?>

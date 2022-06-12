@@ -16,6 +16,7 @@ include("util/user_prefs_util.php");
     <header>
         <nav>
             <a href="user_prefs.php">Предпочитания</a>
+            <a href="conversion_history.php">История</a>
             <a href="logout.php">Изход</a>
         </nav>
     </header>
@@ -35,6 +36,9 @@ include("util/user_prefs_util.php");
             <label>Поставете съдържанието на файла:</label>
             <textarea id="file-text" name="file-text" rows="20" cols="50"></textarea>
 
+            <h3>Добавете коментар</h3>
+            <textarea id="comment-text" name="comment-text" rows="2" cols="50"></textarea>
+
             <h3>Опции</h3>
             <section class="options">
                 <section class="replacement">
@@ -48,6 +52,19 @@ include("util/user_prefs_util.php");
                     </section>
                     <section id="replacement-options-container">
                         <!-- Newly created replacement options will be added here -->
+                    </section>
+                </section>
+                <section class="cases">
+                    <h3>(Оptional) Изберете case за смяна</h3>
+                    <section id="case-container">
+                        <section>
+                            <label>Oт</label>
+                            <input name="case-from"></input>
+                        </section>
+                        <section>
+                            <label>До</label>
+                            <input name="case-to"></input>
+                        </section>
                     </section>
                 </section>
             </section>
