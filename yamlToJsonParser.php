@@ -8,16 +8,18 @@ $jsonResult = "";
 
 function getJsonFromYaml($text) {
 	global $jsonResult;
-	$jsonResult = "";
+	$jsonResult = "{\n";
 
 	$lines = explode("\n", $text);
 
-	formatYamlToJson($lines, 0, 0);
+	formatYamlToJson($lines, 0, 0, false);
+
+	$jsonResult .= "}";
 
 	return $jsonResult;
 }
 
-function formatYamlToJson($lines, $level, $from) {
+function formatYamlToJson($lines, $level, $from, $array) {
 	global $jsonResult;
 	global $replacementOptions;
 	
@@ -64,26 +66,37 @@ function formatYamlToJson($lines, $level, $from) {
 					$jsonResult .= "\"$key\": {\n";
 				}
 				
-				$endIn = formatYamlToJson($lines, $currLevel + 2, $i + 1);
+				$endIn = formatYamlToJson($lines, $currLevel + 2, $i + 1, $array);
 				leave_blank_space($jsonResult, $currLevel);
 				if($array) {
-					$jsonResult .= "],\n";
+					$jsonResult .= "]\n";
 				} else {
 					$jsonResult .= "}\n";
 				}
-				
 				$i = $endIn;
+				if ($i + 1 < count($lines) && count_level($lines[$i+1]) == $currLevel) {
+					$jsonResult = rtrim($jsonResult, "\n");
+					$jsonResult .= ",\n";
+				}
+				
+				
 			} 
 			else {
 				$jsonResult .= "\"$key\" \n";
 			}
 		}
 		else {
+			if ($array) {
+				$jsonResult .= "{";
+			}
 			$jsonResult .= "\"$key\": ";
 			if (is_numeric($value) || isBoolean($value)) {
 				$jsonResult .= "$value";
 			} else {
 				$jsonResult .= "\"$value\"";
+			}
+			if ($array) {
+				$jsonResult .= "}";
 			}
 			if ($i + 1 < count($lines) && count_level($lines[$i+1]) == $currLevel) {
 				$jsonResult .= ",";
@@ -91,6 +104,8 @@ function formatYamlToJson($lines, $level, $from) {
 			$jsonResult .= "\n";
 		}
 	}
+
+	
 	return $i;
 }
 
