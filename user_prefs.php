@@ -37,7 +37,7 @@ $userPrefs = $userPrefsUtil->getUserPrefs($username);
     <main>
         <?php if (isset($success) && $success === true): ?>
         <section class="success">
-            Your preferences have been updated successfully.
+            Предпочитанията Ви бяха променени успешно.
         </section>
         <?php endif ?>
 

@@ -33,7 +33,7 @@ $rowsCount = count($conversionEntries);
         <h1>История на конвертиранията</h1>
         <?php if ($rowsCount < 1) : ?>
             <section class="failure">
-                No conversions found.
+                Не са намерени конвертирания.
             </section>
         <?php endif ?>
         <section class="conversions-container">
@@ -41,11 +41,11 @@ $rowsCount = count($conversionEntries);
                 <table id="conversion-entries">
                     <?php foreach ($conversionEntries as $entry) : ?>
                         <tr class="entry">
-                            <td> Date created: <?= $entry[0] ?> </td>
-                            <td> Comment: <?php if (empty($entry[1])) : ?>No comment<?php endif ?> <?= $entry[1] ?> </td>
-                            <td> Conversion type: <?= $entry[2] ?> </td>
-                            <td> Original file name: <?php if (empty($entry[3])) : ?>Missing<?php endif ?> <?= $entry[3] ?> </td>
-                            <td><a href="saved_files/<?= $entry[4] ?>" download>Download Result File</a></td>
+                            <td> Дата: <?= $entry[0] ?> </td>
+                            <td> Коментар: <?php if (empty($entry[1])) : ?>Няма коментар<?php endif ?> <?= $entry[1] ?> </td>
+                            <td> Тип на конвертиране: <?= $entry[2] ?> </td>
+                            <td> Име на първоначален файл: <?php if (empty($entry[3])) : ?>Липсва<?php endif ?> <?= $entry[3] ?> </td>
+                            <td><a href="saved_files/<?= $entry[4] ?>" download>Изтегляне на резултатен файл</a></td>
                         </tr>
                     <?php endforeach ?>
                 </table>
