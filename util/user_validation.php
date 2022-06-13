@@ -3,7 +3,7 @@
 class UserValidation {
     private static $usernameMinLength = 3;
     private static $passwordMinLength = 3;
-    private static $emailRegex = "/^[a-zA-Z0-9.-_]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/";
+    private static $emailRegex = "/^[a-zA-Z0-9.-_]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]+$/";
     
     public static function validateUserData($username, $email, $password, $passwordRepeat) {
         $errors = array();
