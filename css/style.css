@@ -1,7 +1,56 @@
-main, #file-upload-form {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Satisfy&family=Staatliches&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fafafa;
+}
+
+main,
+#file-upload-form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+nav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+nav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+nav a:hover {
+    background-color: #fafafa;
+    color: black;
+}
+
+.title {
+    color: grey;
+    font-size: 45px;
+    font-style: #333;
+    font-family: 'Staatliches', cursive;
+}
+
+.title-img {
+    margin-top: 20px;
+    height: 200px;
+}
+
+label {
+    margin: 5px 0 10px;
+}
+
+input {
+    width: 200px;
 }
 
 #file-upload-form button[type=submit] {
@@ -10,4 +59,89 @@ main, #file-upload-form {
 
 #conversion-type {
     margin-bottom: 2rem;
+}
+
+
+.insert-btn {
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    display: inline-block;
+    padding: 6px 16px;
+    margin: 0 10px;
+}
+
+.insert-btn:hover {
+    background-color: #F3F4F6;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.submit-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: #6E6D70;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+    color: #DFDEDF;
+    border: none;
+    margin-bottom: 100px;
+    font-size: 15px;
+}
+
+.submit-btn:hover {
+    background-color: gray;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+
+.options-value {
+    height: 25px;
+}
+
+#file-text {
+    height: 300px;
+    resize: none;
+    overflow-y: scroll;
+}
+
+#comment-text {
+    height: 100px;
+    resize: none;
+    overflow-y: scroll;
+}
+
+.comments-title {
+    margin-top: 30px;
+}
+
+.success {
+    color: green;
+    margin: 20px;
+}
+
+.user-pref {
+    margin: 20px 0;
+}
+
+.settings-img {
+    margin-top: 20px;
+    height: 100px;
+}
+
+input[name=repl-option-first] {
+    margin: 10px 5px 0 0;
+    width: 40%;
+}
+
+input[name=repl-option-second]{
+    margin: 10px 5px 0 0;
+    width: 40%;
+}
+
+.history-img {
+    height: 100px;
+    margin-top: 30px;
 }

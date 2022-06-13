@@ -33,11 +33,13 @@ if (isset($_SESSION["just_registered"])) {
 <head>
     <meta charset="UTF-8">
     <title>Влизане</title>
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/global_style.css">
     <link rel="stylesheet" href="css/form_style.css">
 </head>
 <body>
     <main>
+        <img class="login-img" src="./resources/login.png">
         <h1>Влизане</h1>
         <form id="login-form" class="form" method="POST">
             <section class="messages-container">
@@ -64,7 +66,7 @@ if (isset($_SESSION["just_registered"])) {
                 <input type="password" name="password" required />
             </section>
 
-            <button type="submit">Влизане</button>
+            <button class="submit-btn" type="submit">Влизане</button>
         </form>
         <p>Нямате акаунт? <a href="register.php">Регистриране</a></p>
     </main>
