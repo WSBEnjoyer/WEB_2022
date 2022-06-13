@@ -1,0 +1,19 @@
+.table-wrapper{
+    margin: 10px 30px 70px;
+    box-shadow: 0px 3px 5px rgba( 0, 0, 0, 0.17 );
+}
+
+table {
+    width: 100%;
+    background-color: white;
+}
+
+table td {
+    padding: 10px;
+    font-size: 15px;
+}
+
+table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+

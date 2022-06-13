@@ -33,11 +33,13 @@ if ($_POST) {
 <head>
     <meta charset="UTF-8">
     <title>Регистриране</title>
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/global_style.css">
     <link rel="stylesheet" href="css/form_style.css">
 </head>
 <body>
     <main>
+        <img class="login-img" src="./resources/register.png">
         <h1>Регистриране</h1>
         <form id="register-form" class="form" method="POST">
             <section class="messages-container">
@@ -68,7 +70,7 @@ if ($_POST) {
                 <input type="password" name="password_repeat" required />
             </section>
 
-            <button type="submit">Регистриране</button>
+            <button class="submit-btn" type="submit">Регистриране</button>
         </form>
         <p>Вече имате акаунт? <a href="login.php">Влизане</a></p>
     </main>

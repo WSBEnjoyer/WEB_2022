@@ -26,11 +26,12 @@ $userPrefs = $userPrefsUtil->getUserPrefs($username);
 <head>
     <meta charset="UTF-8">
     <title>Предпочитания</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.php">Начало</a>
+            <a href="index.php">Назад</a>
         </nav>
     </header>
     <main>
@@ -39,16 +40,20 @@ $userPrefs = $userPrefsUtil->getUserPrefs($username);
             Your preferences have been updated successfully.
         </section>
         <?php endif ?>
+
+        <img class="settings-img" src="./resources/settings-icon.png">
+        <h1>Предпочитания</h1>
+
         <section class="user-prefs">
             <form id="user-prefs-form" method="post">
                 <?php foreach($availablePrefs as $prefName => $prefDescription): ?>
                     <section class="user-pref">
                         <label><?= $prefDescription ?></label>
-                        <input type="checkbox" name="<?= $prefName ?>" <?= $userPrefs !== null && isset($userPrefs["$prefName"]) && $userPrefs["$prefName"] === "true" ? "checked" : "" ?> />
+                        <input type="checkbox" name="<?= $prefName ?>" <?= $userPrefs["$prefName"] === "true" ? "checked" : "" ?> />
                     </section>
                 <?php endforeach ?>
 
-                <button type="submit">Запазване</button>
+                <button class="submit-btn" type="submit">Запазване</button>
             </form>
         </section>
     </main>
