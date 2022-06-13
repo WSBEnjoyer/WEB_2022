@@ -101,7 +101,7 @@ if ($_POST) {
 <body>
     <header>
         <nav>
-            <a href="/">Начало</a>
+            <a href="index.php">Начало</a>
         </nav>
     </header>
     <main>

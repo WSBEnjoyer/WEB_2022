@@ -10,7 +10,7 @@ class UserPrefsUtil {
     private $userPrefsSaveFolderPath;
 
     function __construct() {
-        $this->userPrefsSaveFolderPath = $_SERVER["DOCUMENT_ROOT"] . "/" . $this->userPrefsSaveFolderName;
+        $this->userPrefsSaveFolderPath = __DIR__ . "/../" . $this->userPrefsSaveFolderName;
     }
 
     public function getAvailablePreferences() {
