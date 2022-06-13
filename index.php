@@ -32,6 +32,7 @@ include("util/user_prefs_util.php");
             <select name="conversion-type" id="conversion-type">
                 <option value="yaml-to-json">YAML -> JSON</option>
                 <option value="json-to-yaml">JSON -> YAML</option>
+                <option value="yaml-to-properties">YAML -> Properties</option>
             </select>
 
             <label>Изберете файл:</label>

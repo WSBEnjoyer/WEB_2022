@@ -5,6 +5,7 @@ include("util/conversion_util.php");
 include("util/user_prefs_util.php");
 include_once("parsing_util.php");
 include("yamlToJsonParser.php");
+include("yamlToPropertiesParser.php");
 include("jsonToYamlParser.php");
 include("case_replacer.php");
 
@@ -68,6 +69,8 @@ if ($_POST) {
         $result = getJsonFromYaml($sourceConverted);
     } else if ($conversion_type === "json-to-yaml") {
         $result = getYamlFromJson($sourceConverted);
+    } else if ($conversion_type === "yaml-to-properties") {
+        $result = getPropertiesFromYaml($sourceConverted);
     }
 
     if($userPrefs !== null && isset($userPrefs["auto_save_files"]) && $userPrefs["auto_save_files"]==="true") {
