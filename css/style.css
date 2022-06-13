@@ -145,3 +145,7 @@ input[name=repl-option-second]{
     height: 100px;
     margin-top: 30px;
 }
+
+.cases {
+    margin-top: 2rem;
+}
