@@ -97,11 +97,12 @@ if ($_POST) {
     <meta charset="UTF-8">
     <title>Резултат от конвертиране</title>
     <link rel="stylesheet" href="css/convert_result.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <nav>
-            <a href="/">Начало</a>
+            <a href="/">Назад</a>
         </nav>
     </header>
     <main>
