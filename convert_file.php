@@ -76,6 +76,15 @@ if ($_POST) {
     if($userPrefs !== null && isset($userPrefs["auto_save_files"]) && $userPrefs["auto_save_files"]==="true") {
         $fileSaveDir = __DIR__ . "/saved_files/";
         $saveFileName = $username . "_" . time();
+
+        if ($conversion_type === "yaml-to-json") {
+            $saveFileName .= ".json";
+        } else if ($conversion_type === "json-to-yaml") {
+            $saveFileName .= ".yaml";
+        } else if ($conversion_type === "yaml-to-properties") {
+            $saveFileName .= ".properties";
+        }
+
         $saveFilePath = $fileSaveDir . $saveFileName;
 
         $conversionUtil->recordConversion($comment, $fileName, $saveFileName, $conversion_type);
